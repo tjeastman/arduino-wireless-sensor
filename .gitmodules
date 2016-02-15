@@ -1,0 +1,3 @@
+[submodule "libraries/RF24"]
+	path = libraries/RF24
+	url = https://github.com/TMRh20/RF24.git
