@@ -1,8 +1,8 @@
 #include <SPI.h>
 #include "RF24.h"
 
-rf24_pa_dbm_e POWER_LEVEL = RF24_PA_LOW;  // default is RF24_PA_MAX
-/* rf24_datarate_e DATA_RATE = RF24_250KBPS; */
+rf24_pa_dbm_e RADIO_POWER_LEVEL = RF24_PA_LOW;  // default is RF24_PA_MAX
+rf24_datarate_e RADIO_DATA_RATE = RF24_1MBPS; //RF24_250KBPS;
 
 RF24 radio(7,8);  // set up nRF24L01 radio on SPI bus plus pins 7 & 8
 
@@ -35,7 +35,8 @@ void setup()
   /* Serial.println(radio.getDataRate()); */
   /* Serial.println(); */
 
-  radio.setPALevel(POWER_LEVEL);
+  radio.setPALevel(RADIO_POWER_LEVEL);
+  radio.setDataRate(RADIO_DATA_RATE);
 
   /* Serial.println(F("after")); */
   /* Serial.print(F("power level: ")); */
