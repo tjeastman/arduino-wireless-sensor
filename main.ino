@@ -4,7 +4,7 @@
 const rf24_pa_dbm_e RADIO_POWER_LEVEL = RF24_PA_LOW;  // default is RF24_PA_MAX
 const rf24_datarate_e RADIO_DATA_RATE = RF24_1MBPS; //RF24_250KBPS;
 
-RF24 radio(7,8);  // set up nRF24L01 radio on SPI bus plus pins 7 & 8
+RF24 radio(7, 8);  // set up nRF24L01 radio on SPI bus plus pins 7 & 8
 
 const unsigned long SEND_DELAY_MS = 1000;
 
