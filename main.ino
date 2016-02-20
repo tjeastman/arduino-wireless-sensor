@@ -9,8 +9,8 @@ RF24 radio(7,8);  // set up nRF24L01 radio on SPI bus plus pins 7 & 8
 unsigned long SEND_DELAY_MS = 1000;
 
 enum radio_role_e {
-  sender,  // 0
-  receiver // 1
+  sender,
+  receiver
 };
 
 radio_role_e radio_role = RADIO_ROLE;
