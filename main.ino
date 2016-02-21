@@ -25,20 +25,6 @@ void setup()
 
   radio = new Radio();
 
-  /* Serial.println(F("before")); */
-  /* Serial.print(F("power level: ")); */
-  /* Serial.println(radio.getPALevel()); */
-  /* Serial.print(F("data rate: ")); */
-  /* Serial.println(radio.getDataRate()); */
-  /* Serial.println(); */
-
-  /* Serial.println(F("after")); */
-  /* Serial.print(F("power level: ")); */
-  /* Serial.println(radio.getPALevel()); */
-  /* Serial.print(F("data rate: ")); */
-  /* Serial.println(radio.getDataRate()); */
-  /* Serial.println(); */
-
   // open pipes on each radio for reading and writing with opposite addresses
   byte address1[] = "node1";
   byte address2[] = "node2";
