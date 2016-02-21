@@ -1,4 +1,4 @@
-struct sensor_val_t {
+struct sensor_state_t {
   int accel_X;
   int accel_Y;
   int accel_Z;
@@ -9,9 +9,9 @@ struct sensor_val_t {
 };
 
 class Sensor {
-  sensor_val_t state;
+  sensor_state_t state;
  public:
   Sensor();
-  const sensor_val_t * get_state();
+  const sensor_state_t * get_state();
   bool update_state();
 };

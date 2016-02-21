@@ -39,7 +39,7 @@ bool Sensor::update_state()
   return true;
 }
 
-const sensor_val_t * Sensor::get_state()
+const sensor_state_t * Sensor::get_state()
 {
   return &state;
 }
