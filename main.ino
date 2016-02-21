@@ -62,9 +62,10 @@ void setup()
 void loop()
 {
   if (radio_role == sender)  {
-    const sensor_val_t * sensor_val;
-    sensor->update_state();
-    sensor_val = sensor->get_state();
+    if (!sensor->update_state()) {
+      Serial.println(F("failed to update state"));
+    }
+    const sensor_val_t * sensor_val = sensor->get_state();
 
     radio.stopListening();
     bool success = radio.write(sensor_val, sizeof(sensor_val_t));

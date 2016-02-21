@@ -13,5 +13,5 @@ class Sensor {
  public:
   Sensor();
   const sensor_val_t * get_state();
-  void update_state();
+  bool update_state();
 };

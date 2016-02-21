@@ -14,13 +14,16 @@ Sensor::Sensor()
   Wire.endTransmission(true);
 }
 
-void Sensor::update_state()
+bool Sensor::update_state()
 {
   // read values from the MPU-6050 device
   Wire.beginTransmission(MPU6050_ADDRESS);
   Wire.write(0x3B);  // start with register 0x3B (ACCEL_XOUT_H)
   Wire.endTransmission(false);
   Wire.requestFrom(MPU6050_ADDRESS, 14, true);  // request a total of 14 registers
+  if (Wire.available() != 14) {
+    return false;
+  }
 
   int temp;
   state.accel_X = Wire.read() << 8 | Wire.read();  // 0x3B (ACCEL_XOUT_H) & 0x3C (ACCEL_XOUT_L)
@@ -33,6 +36,7 @@ void Sensor::update_state()
 
   // convert temperature into degrees C
   state.temp = (float)temp / 340.00 + 36.53;
+  return true;
 }
 
 const sensor_val_t * Sensor::get_state()
