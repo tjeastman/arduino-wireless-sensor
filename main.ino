@@ -16,12 +16,14 @@ enum radio_role_e {
 
 const radio_role_e radio_role = RADIO_ROLE;
 
+Sensor *sensor;
+
 void setup()
 {
   Serial.begin(115200);
 
   if (radio_role == sender) {
-    initialize_sensor();
+    sensor = new Sensor();
   }
 
   radio.begin();
@@ -59,17 +61,17 @@ void setup()
 
 void loop()
 {
-  sensor_val_t sensor_val;
-
   if (radio_role == sender)  {
-    sensor_val = read_sensor();
+    const sensor_val_t * sensor_val;
+    sensor->update_state();
+    sensor_val = sensor->get_state();
 
     radio.stopListening();
-    bool success = radio.write(&sensor_val, sizeof(sensor_val_t));
+    bool success = radio.write(sensor_val, sizeof(sensor_val_t));
     radio.startListening();
 
-    Serial.print(F("sending sensor value: "));
-    Serial.print(sensor_val.temp);
+    Serial.print(F("sent sensor value: "));
+    Serial.print(sensor_val->temp);
     Serial.print(F("..."));
     Serial.println(success ? F("succeeded") : F("failed"));
 
@@ -77,6 +79,7 @@ void loop()
   }
 
   if (radio_role == receiver) {
+    sensor_val_t sensor_val;
     if (radio.available()) {
 
       while (radio.available()) { // while there is data ready

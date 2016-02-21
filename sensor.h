@@ -8,5 +8,10 @@ struct sensor_val_t {
   float temp;
 };
 
-void initialize_sensor(void);
-sensor_val_t read_sensor(void);
+class Sensor {
+  sensor_val_t state;
+ public:
+  Sensor();
+  const sensor_val_t * get_state();
+  void update_state();
+};
