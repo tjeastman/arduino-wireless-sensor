@@ -2,6 +2,9 @@
 #include <Wire.h>
 #include "sensor.h"
 
+// I2C address of the MPU-6050 device
+const int MPU6050_ADDRESS = 0x68;
+
 void initialize_sensor()
 {
   Wire.begin();
