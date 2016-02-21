@@ -21,17 +21,17 @@ bool Radio::available()
   return device->available();
 }
 
-bool Radio::write(const void *bytes, size_t num_bytes)
+bool Radio::write(const void *buffer, size_t len)
 {
   device->stopListening();
-  bool success = device->write(bytes, num_bytes);
+  bool success = device->write(buffer, len);
   device->startListening();
   return success;
 }
 
-void Radio::read(void *bytes, size_t num_bytes)
+void Radio::read(void *buffer, size_t len)
 {
-  device->read(bytes, num_bytes);
+  device->read(buffer, len);
 }
 
 void Radio::listen()
