@@ -62,20 +62,16 @@ void loop()
   sensor_val_t sensor_val;
 
   if (radio_role == sender)  {
-    radio.stopListening();
-
     sensor_val = read_sensor();
+
+    radio.stopListening();
+    bool success = radio.write(&sensor_val, sizeof(sensor_val_t));
+    radio.startListening();
+
     Serial.print(F("sending sensor value: "));
     Serial.print(sensor_val.temp);
     Serial.print(F("..."));
-
-    if (radio.write(&sensor_val, sizeof(sensor_val_t))){
-      Serial.println(F("succeeded"));
-    } else {
-      Serial.println(F("failed"));
-    }
-
-    radio.startListening();
+    Serial.println(success ? F("succeeded") : F("failed"));
 
     delay(SEND_DELAY_MS);
   }
