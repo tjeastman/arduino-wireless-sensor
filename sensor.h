@@ -1,3 +1,6 @@
+#ifndef SENSOR_H
+#define SENSOR_H
+
 struct sensor_state_t {
   int accel_X;
   int accel_Y;
@@ -15,3 +18,5 @@ class Sensor {
   const sensor_state_t * get_state();
   bool update_state();
 };
+
+#endif
