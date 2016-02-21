@@ -1,11 +1,8 @@
-#include <SPI.h>
 #include "RF24.h"
+#include "radio.h"
 #include "sensor.h"
 
-const rf24_pa_dbm_e RADIO_POWER_LEVEL = RF24_PA_LOW;  // default is RF24_PA_MAX
-const rf24_datarate_e RADIO_DATA_RATE = RF24_1MBPS; //RF24_250KBPS;
-
-RF24 *radio;
+Radio *radio;
 
 const unsigned long SEND_DELAY_MS = 500;
 
@@ -26,9 +23,7 @@ void setup()
     sensor = new Sensor();
   }
 
-  radio = new RF24(7, 8);  // set up nRF24L01 radio on SPI bus plus pins 7 & 8
-
-  radio->begin();
+  radio = new Radio();
 
   /* Serial.println(F("before")); */
   /* Serial.print(F("power level: ")); */
@@ -36,9 +31,6 @@ void setup()
   /* Serial.print(F("data rate: ")); */
   /* Serial.println(radio.getDataRate()); */
   /* Serial.println(); */
-
-  radio->setPALevel(RADIO_POWER_LEVEL);
-  radio->setDataRate(RADIO_DATA_RATE);
 
   /* Serial.println(F("after")); */
   /* Serial.print(F("power level: ")); */
@@ -51,14 +43,12 @@ void setup()
   byte address1[] = "node1";
   byte address2[] = "node2";
   if (radio_role == sender) {
-    radio->openWritingPipe(address2);
-    radio->openReadingPipe(1, address1);
+    radio->open_pipe(address1, address2);
   } else {
-    radio->openWritingPipe(address1);
-    radio->openReadingPipe(1, address2);
+    radio->open_pipe(address2, address1);
   }
 
-  radio->startListening();
+  radio->listen();
 }
 
 void loop()
@@ -69,9 +59,7 @@ void loop()
     }
     const sensor_state_t * sensor_val = sensor->get_state();
 
-    radio->stopListening();
     bool success = radio->write(sensor_val, sizeof(sensor_state_t));
-    radio->startListening();
 
     Serial.print(F("sent sensor value: "));
     Serial.print(sensor_val->temp);
