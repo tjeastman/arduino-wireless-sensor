@@ -1,6 +1,7 @@
 #include <SPI.h>
 #include <Wire.h>
 #include "RF24.h"
+#include "sensor.h"
 
 const byte MPU6050_ADDRESS = 0x68; // I2C address of the MPU-6050 device
 
@@ -17,16 +18,6 @@ enum radio_role_e {
 };
 
 const radio_role_e radio_role = RADIO_ROLE;
-
-struct sensor_val_t {
-  int accel_X;
-  int accel_Y;
-  int accel_Z;
-  float temp;
-  int gyro_X;
-  int gyro_Y;
-  int gyro_Z;
-};
 
 sensor_val_t read_sensor()
 {
