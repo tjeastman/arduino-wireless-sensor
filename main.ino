@@ -69,10 +69,10 @@ void loop()
     Serial.print(sensor_val.temp);
     Serial.print(F("..."));
 
-    if (!radio.write(&sensor_val, sizeof(sensor_val_t))){
-      Serial.println(F("failed"));
-    } else {
+    if (radio.write(&sensor_val, sizeof(sensor_val_t))){
       Serial.println(F("succeeded"));
+    } else {
+      Serial.println(F("failed"));
     }
 
     radio.startListening();
