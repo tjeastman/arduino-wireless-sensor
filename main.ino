@@ -1,5 +1,4 @@
 #include <SPI.h>
-#include <Wire.h>
 #include "RF24.h"
 #include "sensor.h"
 
