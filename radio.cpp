@@ -7,7 +7,7 @@ const rf24_datarate_e RADIO_DATA_RATE = RF24_1MBPS; //RF24_250KBPS;
 
 Radio::Radio()
 {
-  // set up nRF24L01 radio on SPI bus plus pins 7 & 8
+  // set up nRF24L01+ radio on SPI bus plus pins 7 & 8
   device = new RF24(7, 8);
 
   device->begin();
