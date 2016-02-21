@@ -57,12 +57,12 @@ void loop()
     if (!sensor->update_state()) {
       Serial.println(F("failed to update state"));
     }
-    const sensor_state_t * sensor_val = sensor->get_state();
+    const sensor_state_t * sensor_state = sensor->get_state();
 
-    bool success = radio->write(sensor_val, sizeof(sensor_state_t));
+    bool success = radio->write(sensor_state, sizeof(sensor_state_t));
 
     Serial.print(F("sent sensor value: "));
-    Serial.print(sensor_val->temp);
+    Serial.print(sensor_state->temp);
     Serial.print(F("..."));
     Serial.println(success ? F("succeeded") : F("failed"));
 
@@ -70,15 +70,15 @@ void loop()
   }
 
   if (radio_role == receiver) {
-    sensor_state_t sensor_val;
+    sensor_state_t sensor_state;
     if (radio->available()) {
 
       while (radio->available()) { // while there is data ready
-        radio->read(&sensor_val, sizeof(sensor_state_t));
+        radio->read(&sensor_state, sizeof(sensor_state_t));
       }
 
       Serial.print(F("received sensor value: "));
-      Serial.println(sensor_val.temp);
+      Serial.println(sensor_state.temp);
     }
   }
 }
